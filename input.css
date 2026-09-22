@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@import 'tailwind-animations';
+
+@font-face {
+    src: url(assets/GoogleSans-Italic-VariableFont_GRAD\,opsz\,wght.woff2);
+    font-family: "Google Sans", sans-serif;
+    font-display: swap;
+
+}
+
+@theme {
+    --font-display: "Google Sans", sans-serif;
+}

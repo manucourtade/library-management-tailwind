@@ -15,19 +15,58 @@
      
         <div class="p-10 flex justify-evenly gap-10 flex-col  h-auto">
             
-            <span class="text-2xl xl:text-3xl w-full
-            border-b border-blue-200  justify-self-start rounded-xl lg:-mt-28 tracking-wider
+            <span class="text-center text-2xl xl:text-3xl w-full
+            border-b border-blue-200  justify-self-start rounded-xl lg:-mt-28 lg:pt-10 tracking-wider
               py-4 px-10 lg:px-26">Register - Management library</span>
             
               <form action=""  id="registerForm" class="flex flex-col  gap-3">
-                <label class="text-xl" for="Username">Username</label>
+
+                <label class="text-xl" for="">E-mail</label>
+                <input id="username" class="mb-10  p-4 border border-gray-300 rounded-2xl outline-none
+                 focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300" type="email" name="email" id="" placeholder="manucourtade@gmail.com">
+
+                <label class="text-xl" for="">Username</label>
                 <input id="username" class="mb-10  p-4 border border-gray-300 rounded-2xl outline-none
                  focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300" type="text" name="Username" id="" placeholder="ex: manucourtade">
                 
-                <label class="text-xl" for="password">Password</label>
+                <label class="text-xl" for="">Password</label>
                 <input id="password" class="mb-10 p-4 rounded-2xl border border-gray-300 outline-none focus:border-blue-400
                  hover:bg-gray-200 transition-colors duration-300" type="password" name="Password" id="" placeholder="Enter password">
-                <button type="submit" class="text-white text-lg bg-gradient-to-br from-blue-500 to-blue-300 self-center 
+
+                
+                <label class="text-xl" for="">Date of birth</label>
+                <input id="username" class="mb-10  p-4 border border-gray-300 rounded-2xl outline-none
+                 focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300" type="date" name="" id="">
+
+                 <label class="text-xl" for="">Telephone</label>
+                <input id="username" class="mb-10  p-4 border border-gray-300 rounded-2xl outline-none
+                 focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300" type="tel" name="" id="" placeholder="+54 9 2324 50 6198">
+                
+               <div class="flex flex-col">
+                    <p>Choose your gender:</p>
+                    <div class="ml-10 mt-5">
+                        <input id="gender-male" name="gender" type="radio"
+                            class="mb-5 p-4 border border-gray-300 rounded-2xl outline-none
+                            focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300">
+                        <label class="text-xl" for="gender-male">Male</label>
+                    </div>
+
+                    <div class="ml-10">
+                        <input id="gender-female" name="gender" type="radio"
+                            class="mb-5 p-4 border border-gray-300 rounded-2xl outline-none
+                            focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300">
+                        <label class="text-xl" for="gender-female">Female</label>
+                    </div>
+
+                    <div class="ml-10">
+                        <input id="gender-none" name="gender" type="radio"
+                            class="mb-5 p-4 border border-gray-300 rounded-2xl outline-none
+                            focus:border-blue-400 hover:bg-gray-200 transition-colors duration-300">
+                        <label class="text-xl" for="gender-none">I prefer not to say</label>
+                    </div>
+                </div>
+                
+                 <button type="submit" class="text-white text-lg bg-gradient-to-br from-blue-500 to-blue-300 self-center 
                 rounded-2xl px-4 py-5 mb-10 justify-items-end my-5
                   cursor-pointer border border-blue-100 w-full
                   hover:bg-gradient-to-br hover:from-blue-700 hover:to-blue-500 duration-600 
@@ -39,8 +78,8 @@
         </div>
         </div>
 
-        <img src="assets/library-img.jpg" alt="Library image log-in" 
-        class="mask-radial-from-0% mask-radial-to-75% justify-center self-center  md:w-md w-full mx-10 rounded-lg">
+        <video src="assets/book-free-air.mp4" autoplay muted loop alt="Library video register" 
+        class="mask-radial-from-0% mask-radial-to-85% justify-center self-center md:w-lg w-full mx-10 rounded-lg">
      
         
     </header>

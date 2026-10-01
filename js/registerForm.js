@@ -1,42 +1,34 @@
-const registerForm = document.getElementById('registerForm');
+const registerForm = document.getElementById("registerForm");
+const formError = document.getElementById("formError");
 
-
-const API_URL = window.location.hostname === "localhost" 
-    ? "http://localhost:8080" 
-    : "https://library-management-api-3d5q.onrender.com"; 
-
-registerForm.addEventListener("submit", (e) => {
+registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("Submit detectado");
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;    
 
-    const user = {
-        username: username,
-        password: password
-    };
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const button = registerForm.querySelector("button[type=submit]");
 
-    fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error al registrar usuario");
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Registro exitoso");
-        window.location.href = "index.html"; // Redirigir a la página de inicio de sesión después del registro exitoso
-        
-    })
-    .catch(error => {
-        console.error("Error de registro:", error);
-        alert("Error al registrar usuario");
-    });
+    clearNotice(formError);
+    button.disabled = true;
+    button.textContent = "Creating account... (the server can take up to a minute to wake up)";
+
+    try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.status === 409) throw new Error("That username is already taken.");
+        if (!response.ok) throw new Error(await readError(response));
+
+        window.location.href = "index.html?registered=1";
+    } catch (error) {
+        const message = error instanceof TypeError
+            ? "Cannot reach the server. If it was idle, wait a minute and try again."
+            : error.message;
+        showNotice(formError, message, "error");
+        button.disabled = false;
+        button.textContent = "Register";
+    }
 });

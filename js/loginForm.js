@@ -1,44 +1,43 @@
-const loginForm = document.getElementById('loginForm');
+if (Session.isActive()) {
+    window.location.replace("books.html");
+}
 
+const loginForm = document.getElementById("loginForm");
+const formError = document.getElementById("formError");
 
-const API_URL = window.location.hostname === "localhost" 
-    ? "http://localhost:8080" 
-    : "https://library-management-api-3d5q.onrender.com"; 
+if (new URLSearchParams(window.location.search).get("registered")) {
+    showNotice(formError, "Account created. You can log in now.", "ok");
+}
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("Submit detectado");
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;    
 
-    const user = {
-        username: username,
-        password: password
-    };
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const button = loginForm.querySelector("button[type=submit]");
 
-    fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Credenciales inválidas");
-        }
-        return response.json();
-    })
-    .then(data => {
-        localStorage.setItem("token", data.token);
-        console.log("Login exitoso");
-        
-        // Opcional: Redirigir a otra página tras el login exitoso
-        // window.location.href = "/dashboard.html"; 
-    })
-    .catch(error => {
-        console.error("Error de login:", error);
-        alert("Usuario o contraseña incorrectos");
-    });
+    clearNotice(formError);
+    button.disabled = true;
+    button.textContent = "Logging in... (the server can take up to a minute to wake up)";
+
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.status === 401) throw new Error("Wrong username or password.");
+        if (!response.ok) throw new Error(await readError(response));
+
+        Session.save(await response.json());
+        window.location.href = "books.html";
+    } catch (error) {
+        const message = error instanceof TypeError
+            ? "Cannot reach the server. If it was idle, wait a minute and try again."
+            : error.message;
+        showNotice(formError, message, "error");
+        button.disabled = false;
+        button.textContent = "Log in";
+    }
 });

@@ -10,7 +10,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     clearNotice(formError);
     button.disabled = true;
-    button.textContent = "Creating account... (the server can take up to a minute to wake up)";
+    button.textContent = "...";
 
     try {
         const response = await fetch(`${API_URL}/auth/register`, {

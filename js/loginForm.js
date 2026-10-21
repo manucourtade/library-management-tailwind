@@ -18,7 +18,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     clearNotice(formError);
     button.disabled = true;
-    button.textContent = "Logging in... (the server can take up to a minute to wake up)";
+    button.textContent = "...";
 
     try {
         const response = await fetch(`${API_URL}/auth/login`, {
